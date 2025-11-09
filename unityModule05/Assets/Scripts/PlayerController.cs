@@ -200,5 +200,11 @@ public class PlayerController : MonoBehaviour
                 animator.Play("Defeated");
             }
         }
+
+        if (isAlive && other.gameObject.CompareTag("Collectable"))
+        {
+            GameManager.instance.AddItemCount();
+            Destroy(other.gameObject);
+        }
     }
 }
