@@ -1,0 +1,24 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement style="flex-direction: row; align-self: center;">
+            <ui:Label text="Total Item Count: " />
+            <ui:Label text="321" name="TotalItemCount" style="-unity-font-style: bold;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-direction: row; align-self: center;">
+            <ui:Label text="Total Death Count: " />
+            <ui:Label text="123" name="TotalDeathCount" style="-unity-font-style: bold;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="VisualElement" style="flex-direction: row; align-self: center;">
+            <ui:Label text="Stage1: " />
+            <ui:Label text="Lock" name="Stage1Locked" style="-unity-font-style: bold;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="VisualElement" style="flex-direction: row; align-self: center;">
+            <ui:Label text="Stage2: " />
+            <ui:Label text="Lock" name="Stage2Locked" style="-unity-font-style: bold;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="VisualElement" style="flex-direction: row; align-self: center;">
+            <ui:Label text="Stage3: " />
+            <ui:Label text="Lock" name="Stage3Locked" style="-unity-font-style: bold;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

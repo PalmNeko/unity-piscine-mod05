@@ -22,10 +22,12 @@ public class BackTitle : MonoBehaviour
 
     void OnBack(ClickEvent evt)
     {
+        if (GameManager.instance.CanBackTitle() == false)
+            return;
         GameManager.instance.SaveData();
-        ToTitle();
         gameObject.SetActive(false);
         GameManager.instance.PlayerVisible(false);
+        ToTitle();
     }
 
     void ToTitle()

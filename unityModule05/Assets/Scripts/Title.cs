@@ -39,7 +39,7 @@ public class Title : MonoBehaviour
 
     void OnDiary(ClickEvent evt)
     {
-        Debug.Log("OnDiary");
+        GameManager.instance.LoadDiary();
     }
 
     void OnNewGame(ClickEvent evt)

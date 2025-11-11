@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("r"))
+        if (player.isAlive && Input.GetKeyDown("r"))
         {
             SceneManager.LoadScene (SceneManager.GetActiveScene().name);
         }
@@ -118,6 +118,11 @@ public class GameManager : MonoBehaviour
     public bool CanClear()
     {
         return itemCount >= 5;
+    }
+
+    public bool CanBackTitle()
+    {
+        return player.isAlive;
     }
 
     public void Clear()
@@ -199,5 +204,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("TotalCount", totalCount);
         PlayerPrefs.SetInt("DefeatCount", defeatCount);
         PlayerPrefs.SetString("LastStage", lastStage);
+    }
+
+    public void LoadDiary()
+    {
+        SceneManager.LoadScene("Diary");
     }
 }

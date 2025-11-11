@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool isAttacking = false;
 
     private Vector3 initialPosition;
-    private bool isAlive = true;
+    public bool isAlive = true;
     private bool inputLock = false;
 
     void Start()
@@ -109,6 +109,7 @@ public class PlayerController : MonoBehaviour
     public void Respawn()
     {
         StopMovement();
+        hp = 3.0f;
         GameObject[] respawns = GameObject.FindGameObjectsWithTag("Respawn");
         foreach (GameObject respawn in respawns)
         {
@@ -162,6 +163,7 @@ public class PlayerController : MonoBehaviour
         isAlive = false;
         if (rb != null)
             rb.linearVelocity = new Vector2(.0f, .0f);
+        ResetRequest();
     }
 
     public void StartMovement()
@@ -172,7 +174,6 @@ public class PlayerController : MonoBehaviour
     void OnRespawned()
     {
         StartMovement();
-        hp = 3.0f;
     }
 
     void MoveLeft()
