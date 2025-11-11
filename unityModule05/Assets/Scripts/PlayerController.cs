@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private bool jumpRequested = false;
     private bool isJumping = false;
     private bool isAttacking = false;
-    
+
     private Vector3 initialPosition;
     private bool isAlive = true;
     private bool inputLock = false;
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
             return true;
         return false;
     }
-    
+
     void MoveRight()
     {
         if (rb.linearVelocity.x < 5f)
@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
 
     public void Respawn()
     {
+        StopMovement();
         GameObject[] respawns = GameObject.FindGameObjectsWithTag("Respawn");
         foreach (GameObject respawn in respawns)
         {
@@ -120,14 +121,18 @@ public class PlayerController : MonoBehaviour
             animator.Play("Respawn");
             animator.Update(0f);
         }
+        else
+        {
+            StartMovement();
+        }
         ResetRequest();
     }
 
     void OnAttack()
     {
-        inputLock =true;
+        inputLock = true;
     }
-    
+
     void OnAttacked()
     {
         animator.SetBool("isAttack", false);
@@ -141,10 +146,10 @@ public class PlayerController : MonoBehaviour
         jumpRequested = false;
         isAttacking = false;
     }
-    
+
     void OnDefeat()
     {
-        isAlive = false;
+        StopMovement();
     }
 
     void OnDefeated()
@@ -152,9 +157,21 @@ public class PlayerController : MonoBehaviour
         defeated.Invoke();
     }
 
-    void OnRespawned()
+    public void StopMovement()
+    {
+        isAlive = false;
+        if (rb != null)
+            rb.linearVelocity = new Vector2(.0f, .0f);
+    }
+
+    public void StartMovement()
     {
         isAlive = true;
+    }
+
+    void OnRespawned()
+    {
+        StartMovement();
         hp = 3.0f;
     }
 

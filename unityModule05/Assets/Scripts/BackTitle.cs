@@ -30,6 +30,6 @@ public class BackTitle : MonoBehaviour
 
     void ToTitle()
     {
-        SceneManager.LoadScene("Title");
+        SceneManager.LoadScene("MainMenu");
     }
 }

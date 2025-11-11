@@ -31,7 +31,7 @@ public class Title : MonoBehaviour
 
     void OnResume(ClickEvent evt)
     {
-        GameManager.instance.LoadGame();
+        _ = GameManager.instance.LoadGame();
     }
 
     void OnDiary(ClickEvent evt)

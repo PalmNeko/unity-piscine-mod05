@@ -15,6 +15,36 @@ public class GameManager : MonoBehaviour
     public int itemCount = 0;
     public int totalCount = 0;
 
+    private bool loadGame = false;
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        var regex = new Regex("Stage");
+        if (regex.IsMatch(scene.name) && loadGame == false)
+        {
+            _ = Respawn();
+        }
+        loadGame = false;
+    }
+    
+    async Awaitable Respawn()
+    {
+        itemCount = 0;
+        PlayerVisible(true);
+        player.Respawn();
+        await fader.FadeIn();
+    }
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,14 +60,16 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         DontDestroyOnLoad(this.gameObject);
-        if (SceneManager.GetActiveScene().name == "Boot")
-            SceneManager.LoadScene("Title");
+        Init();
     }
     
     void Init()
     {
+        errorMessage.gameObject.SetActive(true);
+        player.gameObject.SetActive(true);
         player.defeated.AddListener(OnDefeated);
         errorMessage.gameObject.SetActive(false);
+        player.gameObject.SetActive(false);
     }
 
     void Update()
@@ -57,6 +89,7 @@ public class GameManager : MonoBehaviour
     {
         await fader.FadeOut();
         player.Respawn();
+        PlayerVisible(true);
         await fader.FadeIn();
     }
 
@@ -80,12 +113,17 @@ public class GameManager : MonoBehaviour
 
     public void Clear()
     {
+        PlayerVisible(false);
         return;
     }
 
     public void PlayerVisible(bool visible)
     {
         player.gameObject.SetActive(visible);
+        if (visible == false)
+            player.StopMovement();
+        else if (visible == true)
+            player.StartMovement();
     }
 
     public async Awaitable NotifyError()
@@ -98,11 +136,14 @@ public class GameManager : MonoBehaviour
         errorMessage.gameObject.SetActive(false);
     }
 
-    public void LoadGame()
+    public async Awaitable LoadGame()
     {
+        await fader.FadeOut();
         PlayerVisible(true);
         LoadData();
         backTitleUI.gameObject.SetActive(true);
+        loadGame = true;
+        await fader.FadeIn();
     }
     
     public void LoadData()
@@ -129,7 +170,6 @@ public class GameManager : MonoBehaviour
         backTitleUI.gameObject.SetActive(true);
         PlayerVisible(true);
         player.Respawn();
-        await fader.FadeIn();
     }
 
     public void ResetData()
