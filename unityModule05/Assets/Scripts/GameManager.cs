@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public BackTitle backTitleUI;
     public int itemCount = 0;
     public int totalCount = 0;
+    public int defeatCount = 0;
+    public string lastStage = "";
 
     private bool loadGame = false;
 
@@ -30,11 +32,16 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         var regex = new Regex("Stage");
-        if (regex.IsMatch(scene.name) && loadGame == false)
+        if (regex.IsMatch(scene.name))
         {
-            _ = Respawn();
+            lastStage = SceneManager.GetActiveScene().name;
+            if (loadGame == false)
+            {
+                
+                _ = Respawn();
+            }
+            loadGame = false;
         }
-        loadGame = false;
     }
     
     async Awaitable Respawn()
@@ -61,6 +68,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(this.gameObject);
         Init();
+        LoadData();
     }
     
     void Init()
@@ -82,6 +90,7 @@ public class GameManager : MonoBehaviour
 
     void OnDefeated()
     {
+        defeatCount += 1;
         _ = Replay(); 
     }
 
@@ -140,7 +149,7 @@ public class GameManager : MonoBehaviour
     {
         await fader.FadeOut();
         PlayerVisible(true);
-        LoadData();
+        SceneManager.LoadScene(lastStage);
         backTitleUI.gameObject.SetActive(true);
         loadGame = true;
         await fader.FadeIn();
@@ -150,9 +159,7 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("HasSave") != 1)
             return;
-        var stageName = PlayerPrefs.GetString("LastStage");
-        SceneManager.LoadScene(stageName);
-        Debug.Log("OnLoad");
+        lastStage = PlayerPrefs.GetString("LastStage");
         Vector2 position = new Vector2(
             PlayerPrefs.GetFloat("PositionX"),
             PlayerPrefs.GetFloat("PositionY"));
@@ -160,6 +167,7 @@ public class GameManager : MonoBehaviour
         player.hp = PlayerPrefs.GetFloat("HP");
         itemCount = PlayerPrefs.GetInt("ItemCount");
         totalCount = PlayerPrefs.GetInt("TotalCount");
+        defeatCount = PlayerPrefs.GetInt("DefeatCount");
     }
 
     public async Awaitable NewGame()
@@ -174,6 +182,10 @@ public class GameManager : MonoBehaviour
 
     public void ResetData()
     {
+        itemCount = 0;
+        totalCount = 0;
+        defeatCount = 0;
+        PlayerPrefs.SetInt("HasSave", 0);
         return;
     }
 
@@ -185,9 +197,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("HP", player.hp);
         PlayerPrefs.SetInt("ItemCount", itemCount);
         PlayerPrefs.SetInt("TotalCount", totalCount);
-        var regex = new Regex("Stage");
-        var stageName = SceneManager.GetActiveScene().name;
-        if (regex.IsMatch(stageName))
-            PlayerPrefs.SetString("LastStage", stageName);
+        PlayerPrefs.SetInt("DefeatCount", defeatCount);
+        PlayerPrefs.SetString("LastStage", lastStage);
     }
 }

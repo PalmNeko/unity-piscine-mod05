@@ -31,7 +31,10 @@ public class Title : MonoBehaviour
 
     void OnResume(ClickEvent evt)
     {
-        _ = GameManager.instance.LoadGame();
+        if (PlayerPrefs.GetInt("HasSave") == 1)
+            _ = GameManager.instance.LoadGame();
+        else
+            _ = GameManager.instance.NewGame();
     }
 
     void OnDiary(ClickEvent evt)
