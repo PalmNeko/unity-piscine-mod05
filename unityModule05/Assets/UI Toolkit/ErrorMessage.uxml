@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="flex-grow: 1; justify-content: space-around; align-items: center;">
         <ui:VisualElement style="width: 160px; height: 100px; background-color: rgba(220, 220, 220, 0.56); align-items: center; justify-content: space-around;">
-            <ui:Label text="Need 5 leaves" style="color: rgba(255, 0, 0, 0.89);" />
+            <ui:Label text="Need 25 points" style="color: rgba(255, 0, 0, 0.89);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
