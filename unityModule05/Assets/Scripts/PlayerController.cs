@@ -108,10 +108,18 @@ public class PlayerController : MonoBehaviour
 
     public void Respawn()
     {
-        transform.position = initialPosition;
-        animator.Rebind();
-        animator.Play("Respawn");
-        animator.Update(0f);
+        GameObject[] respawns = GameObject.FindGameObjectsWithTag("Respawn");
+        foreach (GameObject respawn in respawns)
+        {
+            transform.position = respawn.transform.position;
+            break;
+        }
+        if (animator)
+        {
+            animator.Rebind();
+            animator.Play("Respawn");
+            animator.Update(0f);
+        }
         ResetRequest();
     }
 
