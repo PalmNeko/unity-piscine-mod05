@@ -1,7 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: flex-end; padding-bottom: 50px;">
+    <ui:VisualElement style="align-items: center; justify-content: flex-end; padding-bottom: 50px; position: absolute; bottom: 0; align-self: center;">
         <ui:Button text="Resume" name="Resume" />
         <ui:Button text="NewGame" name="NewGame" />
         <ui:Button text="Diary" name="Diary" />
     </ui:VisualElement>
+    <ui:Label text="A Wild Catapillar" style="text-overflow: clip; white-space: nowrap; -unity-text-align: upper-center; margin-top: 50px; font-size: 32px; color: rgb(0, 0, 0); background-color: rgba(0, 255, 119, 0.29);" />
 </ui:UXML>
