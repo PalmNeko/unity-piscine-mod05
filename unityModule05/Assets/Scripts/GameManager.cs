@@ -111,8 +111,8 @@ public class GameManager : MonoBehaviour
 
     public void AddItemCount()
     {
-        itemCount += 1;
-        totalCount += 1;
+        itemCount += 5;
+        totalCount += 5;
     }
 
     public bool CanClear()
