@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 
     public bool CanClear()
     {
-        return itemCount >= 5;
+        return itemCount >= 5 * 5;
     }
 
     public bool CanBackTitle()
